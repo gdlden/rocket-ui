@@ -142,12 +142,12 @@ router.beforeEach(async (to, from, next) => {
         // 如果没有权限，则进入403
         next('/403');
     }*/ else {
-        if (token) {
+        if (token && basicStore.userinfo === null) {
           try {
             await basicStore.fetchUserinfo();
           } catch(error) {
             localStorage.removeItem('token');
-            return;
+            // return
           }
         }
         next();

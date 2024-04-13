@@ -1,6 +1,12 @@
 import request from '../utils/request';
 import {BASE_URI} from "./base";
 
+export function getPermission() {
+    return request({
+        url: `${BASE_URI}/resources/permission`,
+        method: 'get'
+    })
+}
 export function getMenus() {
     return request({
         url: `${BASE_URI}/resources/list`,

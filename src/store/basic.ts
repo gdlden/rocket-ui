@@ -1,5 +1,7 @@
 import {defineStore} from 'pinia';
 import {fetchUserinfo} from "../api";
+import { getPermission } from '../api/resource';
+import { error } from 'console';
 
 interface UserStore {
     userinfo: {
@@ -32,6 +34,13 @@ export const useBasicStore = defineStore('basic', {
     actions: {
         setUserinfo(d: any) {
             this.userinfo = d;
+            getPermission()
+            .then((response: any) => {
+                this.userinfo.permissions = response.data.data
+            })
+            .catch((error: any)=>{
+                console.log(error)
+            })
         },
         fetchUserinfo(): Promise<any> {
             return new Promise((resolve, reject) => {

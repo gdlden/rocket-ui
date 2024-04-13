@@ -68,13 +68,13 @@
                              size="small"
                              type="primary"
                              :icon="Download"
-                             @click="handleDownload(scope.$index, scope.row)" v-action:user:update>
+                             @click="handleDownload(scope.$index, scope.row)" v-action:torrent:download>
                   </el-button>
                   <el-button circle
                              size="small"
                              type="primary"
                              :icon="Star"
-                             @click="handleStar( scope.row)" v-action:user:update>
+                             @click="handleStar( scope.row)" v-action:torrent:star>
                   </el-button>
 
                 </template>
