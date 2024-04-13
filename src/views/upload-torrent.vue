@@ -153,7 +153,7 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
 const submitUpload = ()=> {
   addTorrent(torrent)
   .then((res)=>{
-      uploadFileParam.id = res.data
+      uploadFileParam.id = res.data.data
       uploadRef.value!.submit()
       ElMessage.success("种子添加成功！")
   })
