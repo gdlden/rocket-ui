@@ -1,7 +1,6 @@
 import {defineStore} from 'pinia';
 import {fetchUserinfo} from "../api";
 import { getPermission } from '../api/resource';
-import { error } from 'console';
 
 interface UserStore {
     userinfo: {
@@ -58,5 +57,6 @@ export const useBasicStore = defineStore('basic', {
                 }
             })
         }
-    }
+    },
+    persist: true
 });

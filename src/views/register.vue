@@ -135,8 +135,6 @@ import { useBasicStore } from "../store/basic";
 import { BASE_URI } from "../api/base";
 import { getUUID } from "../utils/uuid";
 import { useRoute, useRouter } from "vue-router";
-import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
-import { tr } from "element-plus/es/locale";
 
 const route = useRoute();
 const router = useRouter();
