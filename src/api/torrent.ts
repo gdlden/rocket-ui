@@ -31,3 +31,22 @@ export const addTorrent = (data: AddTorrentParam) => {
 }
 
 export const upTorrentFileUri = `${BASE_URI}/torrent/upload`
+
+export const favoriteTorrent = (data: Number) => {
+    return request({
+        url: `${BASE_URI}/torrent/favorite`,
+        method: 'post',
+        data: data
+    })
+}
+
+export const downloadTorrent = (id: Number)=>{
+    return request({
+        url: `${BASE_URI}/torrent/download`,
+        responseType: "blob",
+        method: 'get',
+        params: {
+            id: id
+        }
+    })
+}

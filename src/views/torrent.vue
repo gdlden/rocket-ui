@@ -131,6 +131,8 @@ import {ElMessage, ElMessageBox} from 'element-plus';
 import {Delete, Star, StarFilled, Plus, Search, Download} from '@element-plus/icons-vue';
 import {createUser, deleteUser, updateUser} from "../api/user";
 import {
+  downloadTorrent,
+  favoriteTorrent,
   fetchList
 } from "../api/torrent";
 
@@ -206,16 +208,12 @@ const handlePageChange = (val: number) => {
 
 // 收藏
 const handleStar = (row: any) => {
-  // 二次确认删除
-  ElMessageBox.confirm('确定要删除吗？', '提示', {
-    type: 'warning'
-  }).then(() => {
-    deleteUser(row.id).then(res => {
+
+  favoriteTorrent(row.id).then(res => {
       reqAll();
-    });
-    ElMessage.success('删除成功');
+    ElMessage.success('操作成功');
   })
-      .catch(() => {
+  .catch(() => {
       });
 };
 
@@ -240,8 +238,29 @@ const search = () => {
   reqAll();
   addVisible.value = false;
 };
+//Download torrent
 const handleDownload = (index: number, row: any) => {
   console.log("开始下载：" + row.id)
+  downloadTorrent(row.id)
+  .then((res)=>{
+    const blob = new Blob([res.data],{type:'application/octet-stream'}); // 创建 blob 对象 type 可以使用 headers 里面的 contentType
+    let headers = res.headers
+    let fileName = headers["content-disposition"]
+    fileName = fileName.split('=')[1]
+    const a = document.createElement("a"); 
+    a.download = decodeURI(fileName);
+    const url = window.URL.createObjectURL(blob); // 创建媒体流 url ，详细了解可自己查 URL.createObjectURL（推荐 MDN ）
+
+    a.href = url;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url); // 删除创建的媒体流 url 对象
+  })
+  .catch(()=>{
+    console.log('下载失败')
+  })
 
 };
 
