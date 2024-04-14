@@ -208,7 +208,7 @@ const saveAdd = () => {
 
 const saveEdit = () => {
   const isMenu = form.type == 'MENU';
-  updateResource(id, {...form, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined}).then(res => {
+  updateResource({...form, id, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined}).then(res => {
     getResourceTree();
     ElMessage.success(`编辑成功`);
     editVisible.value = false;

@@ -23,15 +23,15 @@ export function getResourceTree() {
 
 export function createResource(data: { name: string, type: string, url?: string, icon?: string, permission: string, parentId: number }) {
     return request({
-        url: `${BASE_URI}/resources`,
+        url: `${BASE_URI}/resources/add`,
         method: 'post',
         data: data
     });
 }
 
-export function updateResource(resourceId: number, data: { name: string, type: string, url?: string, icon?: string, permission: string, parentId: number }) {
+export function updateResource(data: { id:number,name: string, type: string, url?: string, icon?: string, permission: string, parentId: number }) {
     return request({
-        url: `${BASE_URI}/resources/${resourceId}`,
+        url: `${BASE_URI}/resources/update`,
         method: 'put',
         data: data
     });
