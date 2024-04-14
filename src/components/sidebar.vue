@@ -77,7 +77,7 @@ interface MenuItem {
 const items = ref<MenuItem[]>([]);
 
 getMenus().then(res => {
-  items.value = getDataNode(res.data.data, 55);
+  items.value = getDataNode(res.data.data, 0);
 });
 
 const getDataNode: any = (menus: any[], parentId: number) => {

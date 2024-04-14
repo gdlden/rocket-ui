@@ -267,6 +267,10 @@ const handleDownload = (index: number, row: any) => {
 </script>
 
 <style scoped>
+.container {
+  height: 80vh;
+  overflow-y: auto;
+}
 .handle-box {
   margin-bottom: 20px;
 }

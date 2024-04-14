@@ -217,13 +217,17 @@ const saveEdit = () => {
 
 const getResourceTree = () => {
   reqResourceTree().then(res => {
-    tableData.value = res.data;
+    tableData.value = res.data.data;
   });
 }
 getResourceTree();
 
 </script>
 <style scoped>
+.container {
+  height: 80vh;
+  overflow-y: auto;
+}
 .red {
   color: #F56C6C;
 }

@@ -173,7 +173,7 @@ category.arr = [0,1,2,3,4];
 <style scoped>
 
 #up-torrent {
-  height: 450px;
+  height: 80vh;
   overflow-y: auto;
 }
 .handle-box {
