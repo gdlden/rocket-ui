@@ -16,7 +16,7 @@
             "
             type="primary"
             link
-            v-action:role:create
+            v-action:role:edit
             >新建角色
           </el-button>
           <div style="margin-top: 16px">
@@ -40,12 +40,12 @@
                 </el-icon>
                 <template #dropdown>
                   <el-dropdown-menu>
-                    <span v-action:role:update>
-                      <el-dropdown-item @click="handleEdit" v-action:role:update
+                    <span v-action:role:edit>
+                      <el-dropdown-item @click="handleEdit" v-action:role:edit
                         >编辑</el-dropdown-item
                       >
                     </span>
-                    <span v-action:role:delete>
+                    <span v-action:role:edit>
                       <el-dropdown-item
                         @click="
                           handleDelete(
@@ -70,7 +70,7 @@
                 text
                 :icon="Edit"
                 @click="handleEdit"
-                v-action:role:update
+                v-action:role:edit
               >
                 编辑
               </el-button>
@@ -81,7 +81,7 @@
                 @click="
                   handleDelete(roleList.find((r) => r?.id === activeRoleId))
                 "
-                v-action:role:delete
+                v-action:role:edit
               >
                 删除
               </el-button>
@@ -103,7 +103,7 @@
                 <el-button
                   type="primary"
                   @click="isOrgSelectShow = true"
-                  v-action:role:update
+                  v-action:role:edit
                   >调整成员</el-button
                 >
               </div>
@@ -159,7 +159,7 @@
                 <el-button
                   type="primary"
                   @click="savePermission"
-                  v-action:role:update
+                  v-action:role:edit
                   >保存</el-button
                 >
               </div>
@@ -337,7 +337,7 @@ const activeRoleId = ref<number>(1);
 
 const reqRoleList = async () => {
   getRoleList().then((res) => {
-    roleList.value = res.data;
+    roleList.value = res.data.data;
     getResourceTree();
   });
 };
@@ -366,8 +366,8 @@ const getUserData = (roleId: number) => {
     username: userQuery.username || undefined,
     state: userQuery.state || undefined,
   }).then((res) => {
-    tableData.value = res.data.list;
-    pageTotal.value = res.data.total;
+    tableData.value = res.data.data;
+    pageTotal.value = res.data.page.total;
   });
 };
 getUserData(activeRoleId.value);
@@ -385,7 +385,7 @@ const rolePermission = ref<Permission[]>([]);
 const getResourceTree = () => {
   //初始化权限资源树
   reqResourceTree().then((res) => {
-    rolePermission.value = res.data.map((menu: Resource) => {
+    rolePermission.value = res.data.data.map((menu: Resource) => {
       return {
         id: menu.id,
         name: menu.name,
@@ -532,7 +532,9 @@ const handleOrgSelectSubmit = (p: OrgSelectedData) => {
 </script>
 <style scoped lang="scss">
 .data-center-wrap {
-  position: relative;
+  // position: relative;
+  height: 80vh;
+  overflow-y: auto;
 
   .role-item {
     font-size: 14px;
