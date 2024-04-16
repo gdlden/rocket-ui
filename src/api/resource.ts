@@ -21,7 +21,7 @@ export function getResourceTree() {
     });
 }
 
-export function createResource(data: { name: string, type: string, url?: string, icon?: string, permission: string, parentId: number }) {
+export function createResource(data: { name: string, type: string, url?: string, icon?: string, permission: string, pid: number }) {
     return request({
         url: `${BASE_URI}/resources/add`,
         method: 'post',
@@ -29,7 +29,7 @@ export function createResource(data: { name: string, type: string, url?: string,
     });
 }
 
-export function updateResource(data: { id:number,name: string, type: string, url?: string, icon?: string, permission: string, parentId: number }) {
+export function updateResource(data: { id:number,name: string, type: string, url?: string, icon?: string, permission: string, pid: number }) {
     return request({
         url: `${BASE_URI}/resources/update`,
         method: 'put',

@@ -199,16 +199,16 @@ const handleDelete = (record: any) => {
 
 const saveAdd = () => {
   const isMenu = form.type == 'MENU';
-  createResource({...form, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined}).then(res => {
+  createResource({...form, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined,pid:form.parentId}).then(res => {
     getResourceTree();
-    ElMessage.success(`编辑成功`);
+    ElMessage.success(`新增成功`);
     addVisible.value = false;
   });
 }
 
 const saveEdit = () => {
   const isMenu = form.type == 'MENU';
-  updateResource({...form, id, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined}).then(res => {
+  updateResource({...form, id, url: isMenu ? form.url : undefined, icon: isMenu ? form.icon : undefined,pid:form.parentId}).then(res => {
     getResourceTree();
     ElMessage.success(`编辑成功`);
     editVisible.value = false;
