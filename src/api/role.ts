@@ -18,7 +18,7 @@ export function getRoleUserList(roleId: number, data: { page: number; size: numb
 
 export function createRole(data: { name: string; description: string; }) {
     return request({
-        url: `${BASE_URI}/roles`,
+        url: `${BASE_URI}/roles/add`,
         method: 'post',
         data: data
     });
