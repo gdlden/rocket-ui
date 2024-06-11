@@ -21,6 +21,71 @@
         clearable
       />
     </div>
+    <div class="header-center">
+
+    <el-menu
+        class="header-el-menu"
+        mode="horizontal"
+        :default-active="onRoutes"
+
+        background-color="#324157"
+        text-color="#bfcbd9"
+        active-text-color="#20a0ff"
+        unique-opened
+        router
+    >
+      <template v-for="item in items">
+        <template v-if="item.subs">
+          <el-sub-menu :index="item.index" :key="item.index">
+            <template #title>
+              <el-icon>
+                <component :is="item.icon"></component>
+              </el-icon>
+              <span>{{ item.title }}</span>
+            </template>
+            <template v-for="subItem in item.subs">
+              <el-sub-menu
+                  v-if="subItem.subs"
+                  :index="subItem.index"
+                  :key="subItem.index"
+              >
+                <template #title>
+                  <el-icon>
+                    <component :is="subItem.icon"></component>
+                  </el-icon>
+                  {{ subItem.title }}
+                </template>
+                <el-menu-item v-for="(threeItem, i) in subItem.subs" :key="i" :index="threeItem.index">
+                  <el-icon>
+                    <component :is="threeItem.icon"></component>
+                  </el-icon>
+                  {{ threeItem.title }}
+                </el-menu-item>
+              </el-sub-menu>
+              <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                <el-icon>
+                  <component :is="subItem.icon"></component>
+                </el-icon>
+                {{ subItem.title }}
+              </el-menu-item>
+            </template>
+          </el-sub-menu>
+        </template>
+        <template v-else>
+          <el-menu-item :index="item.index" :key="item.index">
+            <el-icon>
+              <component :is="item.icon"></component>
+            </el-icon>
+            <template #title>{{ item?.title }}</template>
+          </el-menu-item>
+        </template>
+      </template>
+    </el-menu>
+
+    </div>
+    
+
+
 
     <div class="header-right">
       <div class="header-user-con">
@@ -43,6 +108,11 @@
           <el-icon v-else size="22px" color="#fff">
             <Sunny />
           </el-icon>
+        </el-button>
+        <!-- 切换菜单显示方向 -->
+        <el-button>
+          <!-- <el-icon v-if="tag"></el-icon>
+          <el-icon v-else=""></el-icon> -->
         </el-button>
         <!-- 用户头像 -->
         <el-avatar class="user-avator" :size="30" :src="avatar" />
@@ -71,13 +141,52 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed,onMounted, ref } from "vue";
 import { Moon, Search, Sunny } from "@element-plus/icons-vue";
 import { useSidebarStore } from "../store/sidebar";
 import { useRouter } from "vue-router";
+import {useRoute} from 'vue-router';
 import { logout } from "../api/login";
 import { useBasicStore } from "../store/basic";
 import { useDark, useToggle } from "@vueuse/core";
+
+
+
+
+import {getMenus} from "../api/resource";
+
+const route = useRoute();
+const onRoutes = computed(() => {
+  return route.path;
+});
+
+interface MenuItem {
+  index: string;
+  icon: string;
+  title: string;
+  subs: MenuItem[] | undefined;
+}
+
+const items = ref<MenuItem[]>([]);
+
+getMenus().then(res => {
+  items.value = getDataNode(res.data.data, 0);
+});
+
+const getDataNode: any = (menus: any[], parentId: number) => {
+  return menus.filter(m => m.parentId === parentId).map((menu: any) => {
+    let subs: MenuItem[] = getDataNode(menus, menu.id);
+    return {
+      index: menu.url,
+      icon: menu.icon,
+      title: menu.name,
+      subs: subs?.length === 0 ? undefined : subs
+    }
+  });
+}
+
+
+
 
 const keyword = ref("");
 const userinfoStore = useBasicStore();

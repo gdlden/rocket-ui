@@ -107,7 +107,7 @@ const sidebar = useSidebarStore();
   left: 0;
   top: 70px;
   bottom: 0;
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .sidebar::-webkit-scrollbar {
