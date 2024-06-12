@@ -1,6 +1,6 @@
 <template>
 	<v-header />
-	<v-sidebar />
+	<v-sidebar v-if="changeMenu" />
 	<el-card class="content-box" :class="{ 'content-collapse': sidebar.collapse }">
 		<v-tags></v-tags>
 		<el-card class="content">
@@ -20,7 +20,18 @@ import { useTagsStore } from '../store/tags';
 import vHeader from '../components/header.vue';
 import vSidebar from '../components/sidebar.vue';
 import vTags from '../components/tags.vue';
+import { computed,onMounted, ref } from "vue";
 
 const sidebar = useSidebarStore();
 const tags = useTagsStore();
+
+
+const changeMenu=ref();
+
+const  changeMenuFunc= ()=>{
+	changeMenu.value =!changeMenu.value;
+}
+
+// changeMenuFunc()
+
 </script>

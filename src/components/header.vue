@@ -27,13 +27,13 @@
         class="header-el-menu"
         mode="horizontal"
         :default-active="onRoutes"
-
         background-color="#324157"
         text-color="#bfcbd9"
         active-text-color="#20a0ff"
         unique-opened
         router
-    >
+    v-if="vertMenu"
+        >
       <template v-for="item in items">
         <template v-if="item.subs">
           <el-sub-menu :index="item.index" :key="item.index">
@@ -81,7 +81,6 @@
         </template>
       </template>
     </el-menu>
-
     </div>
     
 
@@ -109,10 +108,10 @@
             <Sunny />
           </el-icon>
         </el-button>
-        <!-- 切换菜单显示方向 -->
-        <el-button>
-          <!-- <el-icon v-if="tag"></el-icon>
-          <el-icon v-else=""></el-icon> -->
+        <el-button link @click="changeMenu()">
+          <el-icon size="22px" color="#fff">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 448 512"><path d="M12.83 352h262.34A12.82 12.82 0 0 0 288 339.17v-38.34A12.82 12.82 0 0 0 275.17 288H12.83A12.82 12.82 0 0 0 0 300.83v38.34A12.82 12.82 0 0 0 12.83 352zm0-256h262.34A12.82 12.82 0 0 0 288 83.17V44.83A12.82 12.82 0 0 0 275.17 32H12.83A12.82 12.82 0 0 0 0 44.83v38.34A12.82 12.82 0 0 0 12.83 96zM432 160H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0 256H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z" fill="currentColor"></path></svg>
+        </el-icon>
         </el-button>
         <!-- 用户头像 -->
         <el-avatar class="user-avator" :size="30" :src="avatar" />
@@ -129,7 +128,7 @@
               <!--              <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
                               <el-dropdown-item>项目仓库</el-dropdown-item>
                             </a>-->
-              <el-dropdown-item command="user">个人中心</el-dropdown-item>
+              <el-dropdown-item command="user">个人中心</el-dropdown-item> 
               <el-dropdown-item divided command="loginout"
                 >退出登录</el-dropdown-item
               >
@@ -199,6 +198,10 @@ const sidebar = useSidebarStore();
 
 const isDark = useDark();
 const toggleDark = useToggle(isDark);
+const vertMenu = ref(true)
+const changeMenu = ()=>{
+  vertMenu.value = !vertMenu.value
+}
 
 // 侧边栏折叠
 const collapseChage = () => {
