@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <!-- 折叠按钮 -->
-    <div class="collapse-btn" @click="collapseChage">
+    <div v-if="homeStore.vertMenu" class="collapse-btn" @click="collapseChage">
       <el-icon v-if="sidebar.collapse">
         <Expand />
       </el-icon>
@@ -32,7 +32,7 @@
         active-text-color="#20a0ff"
         unique-opened
         router
-    v-if="vertMenu"
+    v-if="!homeStore.vertMenu"
         >
       <template v-for="item in items">
         <template v-if="item.subs">
@@ -143,18 +143,17 @@
 import { computed,onMounted, ref } from "vue";
 import { Moon, Search, Sunny } from "@element-plus/icons-vue";
 import { useSidebarStore } from "../store/sidebar";
+import { useHomeStore } from "../store/home";
 import { useRouter } from "vue-router";
 import {useRoute} from 'vue-router';
 import { logout } from "../api/login";
 import { useBasicStore } from "../store/basic";
 import { useDark, useToggle } from "@vueuse/core";
-
-
-
-
 import {getMenus} from "../api/resource";
 
 const route = useRoute();
+
+const homeStore = useHomeStore();
 const onRoutes = computed(() => {
   return route.path;
 });
@@ -200,7 +199,7 @@ const isDark = useDark();
 const toggleDark = useToggle(isDark);
 const vertMenu = ref(true)
 const changeMenu = ()=>{
-  vertMenu.value = !vertMenu.value
+  homeStore.handChangeMenu();
 }
 
 // 侧边栏折叠
