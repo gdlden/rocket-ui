@@ -29,6 +29,5 @@ const tags = useTagsStore();
 
 const changeMunu = useHomeStore();
 
-// changeMenuFunc()
 
 </script>

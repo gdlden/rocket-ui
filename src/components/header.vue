@@ -21,16 +21,17 @@
         clearable
       />
     </div>
-    <div class="header-center">
+    <div class="header-center" >
 
     <el-menu
         class="header-el-menu"
         mode="horizontal"
         :default-active="onRoutes"
-        background-color="#324157"
-        text-color="#bfcbd9"
-        active-text-color="#20a0ff"
+        background-color="#242f42"
+        text-color="#fff"
+        active-text-color="#fff"
         unique-opened
+        style="border-bottom:none"
         router
     v-if="!homeStore.vertMenu"
         >
@@ -262,7 +263,6 @@ const handleCommand = (command: string) => {
   float: left;
   line-height: 70px;
 }
-
 .header-right {
   float: right;
   padding-right: 50px;
