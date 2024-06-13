@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia';
 import {fetchUserinfo} from "../api";
 import { getPermission } from '../api/resource';
+import { title } from 'process';
 
 interface UserStore {
     userinfo: {
@@ -11,6 +12,28 @@ interface UserStore {
         avatar: string;
         credential: { identifier: string, identityType: IdentityType };
         permissions: [];
+    }
+}
+interface SiteConfig{
+    siteConfig: {
+        name: string
+        title:string
+        logo:string
+        favicon:string
+        bg:string
+        description:string
+        keywords:string
+        copyright:string
+        footerNavigation:string
+        masterId:string
+        tutorialLink:string
+        themeColor:string
+        socialLinks:string
+        contactEmail:string
+        contactPhone:string
+        remark:string
+        contactAddress:string
+        updateTime:string
     }
 }
 
@@ -60,3 +83,14 @@ export const useBasicStore = defineStore('basic', {
     },
     persist: true
 });
+
+export const useSiteConfigStore = defineStore('siteConfig',{
+    state: ()=><SiteConfig>({
+        siteConfig: {
+            
+        }
+    }),
+    actions: {
+
+    }
+})
