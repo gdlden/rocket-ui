@@ -61,10 +61,11 @@
 </template>
 
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import {computed, ref,watch} from 'vue';
 import {useSidebarStore} from '../store/sidebar';
 import {useRoute} from 'vue-router';
 import {getMenus} from "../api/resource";
+import {useHomeStore} from '../store/home';
 
 
 interface MenuItem {
@@ -77,7 +78,7 @@ interface MenuItem {
 const items = ref<MenuItem[]>([]);
 
 getMenus().then(res => {
-  items.value = getDataNode(res.data.data, 0);
+  items.value = getDataNode(res.data.data, 1);
 });
 
 const getDataNode: any = (menus: any[], parentId: number) => {

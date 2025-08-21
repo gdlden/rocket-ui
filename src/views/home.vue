@@ -21,7 +21,7 @@ import { useTagsStore } from '../store/tags';
 import vHeader from '../components/header.vue';
 import vSidebar from '../components/sidebar.vue';
 import vTags from '../components/tags.vue';
-import { computed,onMounted, ref } from "vue";
+import { computed,onMounted, ref,watch } from "vue";
 
 const sidebar = useSidebarStore();
 const tags = useTagsStore();
@@ -29,5 +29,10 @@ const tags = useTagsStore();
 
 const changeMunu = useHomeStore();
 
+watch(()=>changeMunu.vertMenu,(newValue,oldValue)=>{
+	if(newValue==true) {
+		sidebar.collapse=false
+	}
+});
 
 </script>
